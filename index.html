@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Meri jaan | Happy Propose Day 🌹</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+      overflow: hidden;
+      color: white;
+      text-align: center;
+    }
+
+    /* Background Starfield */
+    .stars-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: twinkle var(--duration) infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Message Card */
+    .popup {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px 30px;
+      width: 85%;
+      max-width: 450px;
+      border-radius: 30px;
+      box-shadow: 0 0 40px rgba(255, 105, 180, 0.4);
+      z-index: 10;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+    }
+
+    h1 { color: #1a1a2e; margin-bottom: 20px; font-size: 2.2em; }
+    
+    #typewriter {
+      font-size: 1.15em;
+      line-height: 1.8;
+      color: #333;
+      min-height: 120px; /* Prevents card from jumping */
+      margin-bottom: 15px;
+    }
+
+    .heart-main { 
+      font-size: 70px; 
+      margin-bottom: 15px; 
+      display: inline-block;
+      animation: heartbeat 1.2s infinite; 
+      cursor: pointer; 
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      20% { transform: scale(1.25); }
+      40% { transform: scale(1.1); }
+      60% { transform: scale(1.25); }
+      100% { transform: scale(1); }
+    }
+
+    .falling {
+      position: absolute;
+      top: -20px;
+      user-select: none;
+      pointer-events: none;
+      z-index: 5;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .signature {
+      font-weight: bold;
+      color: #000;
+      opacity: 0;
+      transition: opacity 2s ease-in;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stars-container" id="starField"></div>
+
+  <div class="popup">
+    <div class="heart-main" onclick="extraLove()">💍</div>
+    <h1>Happy Propose Day, Merijaan</h1>
+    
+    <div id="typewriter"></div>
+    
+    <p class="signature" id="sig">— From the bottom of my heart 🖤</p>
+  </div>
+
+<script>
+  // 1. Starfield Logic
+  const starField = document.getElementById('starField');
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 3 + 'px';
+    star.style.width = size;
+    star.style.height = size;
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+    starField.appendChild(star);
+  }
+
+  // 2. Typewriter Logic
+  const text = "I don’t want to be your favorite or your best. I want to be your only and forget the rest.\n\nTumhare saath har din khubsurat hai, Kya tum hamesha ke liye mere banoge?";
+  let index = 0;
+  const target = document.getElementById("typewriter");
+
+  function typeWriter() {
+    if (index < text.length) {
+      target.innerHTML += text.charAt(index) === '\n' ? '<br>' : text.charAt(index);
+      index++;
+      setTimeout(typeWriter, 50); // Speed of typing
+    } else {
+      document.getElementById('sig').style.opacity = "1";
+    }
+  }
+
+  // 3. Falling Elements Logic
+  function spawnFalling(count = 10) {
+    const items = ['🖤', '🤍', '❤️', '🌹', '✨'];
+    for (let i = 0; i < count; i++) {
+      const element = document.createElement('div');
+      element.className = 'falling';
+      element.innerHTML = items[Math.floor(Math.random() * items.length)];
+      element.style.left = Math.random() * 100 + '%';
+      element.style.fontSize = (Math.random() * 15 + 15) + 'px';
+      element.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      element.style.opacity = Math.random();
+      document.body.appendChild(element);
+      setTimeout(() => element.remove(), 6000);
+    }
+  }
+
+  function extraLove() {
+    spawnFalling(40);
+  }
+
+  // Start Sequences
+  window.onload = () => {
+    typeWriter();
+    setInterval(() => spawnFalling(3), 1000);
+    spawnFalling(15);
+  };
+</script>
+
+</body>
+</html>
